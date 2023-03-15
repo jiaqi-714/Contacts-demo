@@ -70,7 +70,7 @@ export function Contact() {
 					  <p className="mb-0"><FontAwesomeIcon icon={faGlobe}/> <a href={user.website} target="_blank" rel="noopener noreferrer">{user.website}</a></p>
 					  <p className="mb-0"><FontAwesomeIcon icon={faBuilding}/> {user.company.name}</p>
 					</div>
-					<div>
+					<div style={{margin: "8px 2px"}}>
 					<Tooltip title={buttonLabel} position="top" trigger="mouseenter focus" hideOnClick="false">
 						<button onClick={() => handleClick(user)} style={{ borderRadius: '10px', fontSize: '14px' }}><FontAwesomeIcon icon={faCopy}/> Copy Profile</button>
 					</Tooltip>
