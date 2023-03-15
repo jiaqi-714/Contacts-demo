@@ -3,25 +3,23 @@ import { Col, Row } from "react-bootstrap";
 import Card from 'react-bootstrap/Card';
 import Container from 'react-bootstrap/Container';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEnvelope, faPhone, faGlobe, faBuilding, faUser, faSearch } from '@fortawesome/free-solid-svg-icons';
-import Balloon from 'balloon-css';
+import { faEnvelope, faPhone, faGlobe, faBuilding, faUser, faSearch, faCopy, faCab} from '@fortawesome/free-solid-svg-icons';
+import 'balloon-css';
 import 'balloon-css/balloon.min.css';
+import {Tooltip,} from 'react-tippy';
 
 const url = "https://jsonplaceholder.typicode.com/users";
 
 export function Contact() {
 	const [userList, setUserList] = useState([]);
 	const [searchQuery, setSearchQuery] = useState('');
+	const [buttonLabel, setButtonLabel] = useState("Copy");
 
-	const [title, setTitle] = useState('Click me!');
-
-	function handleClick() {
-	  navigator.clipboard.writeText(title);
-	  setTitle('Copied!');
-	  setTimeout(() => setTitle('Click me!'), 2000);
-	}
-  
-
+	const handleClick = (user) => {
+	  navigator.clipboard.writeText(user.name);
+	  setButtonLabel("Copied!");
+	  setTimeout(() => setButtonLabel("Copy"), 500);
+	};
 
 	const getUser = () => {
 		return fetch(url)
@@ -38,7 +36,6 @@ export function Contact() {
 		});
 	}, []);
 
-	
 	// Function to filter the users based on the search query
 	const filteredUsers = userList.filter(user =>
 		user.name.toLowerCase().includes(searchQuery.toLowerCase())
@@ -67,14 +64,16 @@ export function Contact() {
 				  <Card.Body className="d-flex flex-column justify-content-between p-3">
 					<div style={{ fontFamily: "Roboto" }}>
 					  <h5>{user.name}</h5>
-					  <p className="mb-0" onClick={() => {navigator.clipboard.writeText(user.username)}}><FontAwesomeIcon icon={faUser}/> Username: {user.username}</p>
+					  <p className="mb-0"><FontAwesomeIcon icon={faUser}/> Username: {user.username}</p>
 					  <p className="mb-0"><FontAwesomeIcon icon={faEnvelope}/> {user.email}</p>
 					  <p className="mb-0"><FontAwesomeIcon icon={faPhone}/> {user.phone}</p>
 					  <p className="mb-0"><FontAwesomeIcon icon={faGlobe}/> <a href={user.website} target="_blank" rel="noopener noreferrer">{user.website}</a></p>
 					  <p className="mb-0"><FontAwesomeIcon icon={faBuilding}/> {user.company.name}</p>
 					</div>
-					<div className="mt-3 text-center">
-					  <button className="btn btn-primary">View Profile</button>
+					<div>
+					<Tooltip title={buttonLabel} position="top" trigger="mouseenter focus" hideOnClick="false">
+						<button onClick={() => handleClick(user)} style={{ borderRadius: '10px', fontSize: '14px' }}><FontAwesomeIcon icon={faCopy}/> Copy Profile</button>
+					</Tooltip>
 					</div>
 				  </Card.Body>
 				</Card>

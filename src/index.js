@@ -5,7 +5,9 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-bootstrap/dist/react-bootstrap.min.js';
-
+import 'react-tippy/dist/tippy.css'
+import 'balloon-css';
+import 'balloon-css/balloon.min.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
